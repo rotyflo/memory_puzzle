@@ -32,6 +32,7 @@ class Board
   end
   
   def render
+    system("clear")
     puts "  " + (0...@size).to_a.join(" ")
     @grid.each_with_index do |line, i|
       print i.to_s + " "
