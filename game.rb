@@ -5,6 +5,7 @@ class Game
     @size = size
     @board = Board.new(size)
     @prev_card = nil
+    @matched = []
   end
 
   def play
@@ -13,7 +14,6 @@ class Game
     @board.render
     
     while !over?
-      system("clear")
       @board.render
       card = nil
       while !card
@@ -22,9 +22,13 @@ class Game
         rescue
           puts "try 01"
         end
+
+        if card.faceup
+          card = nil
+          @board.render
+        end
       end
       card.reveal
-      system("clear")
       @board.render
       make_guess(card)
     end
@@ -45,7 +49,6 @@ class Game
         sleep(1)
         card.hide
         @prev_card.hide
-        @prev_card = nil
       end
 
       @prev_card = nil
