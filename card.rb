@@ -21,12 +21,4 @@ class Card
   def reveal
     @faceup = true
   end
-  
-  # def to_s
-    
-  # end
-  
-  # def ==
-
-  # end
 end
