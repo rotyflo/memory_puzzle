@@ -13,8 +13,6 @@ class Board
 
   def shuffle
     @pairs = @pairs.sample(@pairs.length)
-
-    return
   end
 
   def populate
@@ -27,8 +25,6 @@ class Board
         i += 1
       end
     end
-
-    return
   end
   
   def render
@@ -39,23 +35,21 @@ class Board
       line.each { |card| print card.display + " " }
       puts
     end
-
-    return
   end
   
   def won?
     cards.all? { |card| card.faceup }
   end
-  
-  def reveal
-    #should reveal a Card at guessed_pos (unless it's already face-up, in
-    #which case the method should do nothing). It should also return the 
-    #value of the card it revealed (you'll see why later).
-  end
 
   def [](pos)
     x, y = pos
 
-    @grid[y][x]
+    if x.is_a?(Integer) && y.is_a?(Integer)
+      if x.between?(0, @size - 1) && y.between?(0, @size - 1)
+        return @grid[y][x]
+      end
+    end
+
+    nil
   end
 end
