@@ -1,9 +1,10 @@
 require_relative "board"
+require_relative "player"
 
 class Game
-  def initialize(size=4)
-    @size = size
-    @board = Board.new(size)
+  def initialize(board, player)
+    @board = board
+    @player = player
     @prev_card = nil
   end
 
@@ -14,35 +15,13 @@ class Game
     
     while !over?
       @board.render
-      card = get_card
+      card = @player.get_card
       card.reveal
       @board.render
       make_guess(card)
     end
 
     puts "You won!"
-  end
-
-  def get_card
-    card = nil
-
-    while !card
-      @board.render
-      pos = get_pos
-      card = @board[pos]
-    end
-
-    if card.faceup
-      card = nil
-      @board.render
-    end
-
-    card
-  end
-
-  def get_pos
-    puts "Enter coordinates with no spaces"
-    gets.chomp.split("").map { |str| str.to_i if "0123456789".include?(str) }
   end
 
   def make_guess(card)
