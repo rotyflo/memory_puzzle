@@ -1,26 +1,21 @@
-require_relative "card"
-
 class Board
   attr_reader :size, :grid
-  @@card_values = ("a".."z").to_a + ("A".."Z").to_a
 
   def initialize(size)
     @size = size
     @grid = Array.new(size) { Array.new(size) }
-    @selection = @@card_values.sample(@size * @size / 2)
-    @pairs = (@selection + @selection).map { |card| Card.new(card) }
   end
 
-  def shuffle
-    @pairs = @pairs.sample(@pairs.length)
+  def shuffle(cards)
+    cards = cards.sample(cards.length)
   end
 
-  def populate
+  def populate(cards)
     i = 0
 
     (0...@size).each do |x|
       (0...@size).each do |y|
-        @grid[x][y] = @pairs[i]
+        @grid[x][y] = cards[i]
         
         i += 1
       end
@@ -44,12 +39,10 @@ class Board
   def [](pos)
     x, y = pos
 
-    if x.is_a?(Integer) && y.is_a?(Integer)
-      if x.between?(0, @size - 1) && y.between?(0, @size - 1)
-        return @grid[y][x]
-      end
-    end
+    if valid_pos?(x, y) then @grid[y][x] else nil end
+  end
 
-    nil
+  def valid_pos?(x, y)
+    [x, y].all?(Numeric) && (0...@size).include?(x) && (0...@size).include?(y)
   end
 end

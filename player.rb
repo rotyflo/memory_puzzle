@@ -1,22 +1,15 @@
-require_relative "board"
-
 class Player
-  def initialize(board)
-    @board = board
-  end
-
-  def get_card
+  def get_card(board)
     card = nil
 
     while !card
-      @board.render
+      board.render
       pos = get_pos
-      card = @board[pos]
-    end
+      card = board[pos]
 
-    if card.faceup
-      card = nil
-      @board.render
+      if card
+        card = nil if card.faceup
+      end
     end
 
     card
@@ -24,6 +17,6 @@ class Player
 
   def get_pos
     puts "Enter coordinates with no spaces"
-    gets.chomp.split("").map { |str| str.to_i if "0123456789".include?(str) }
+    gets.chomp.split("").map { |char| char.to_i if "0123456789".include?(char) }
   end
 end
