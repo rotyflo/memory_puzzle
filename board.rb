@@ -7,7 +7,7 @@ class Board
   end
 
   def shuffle(cards)
-    cards = cards.sample(cards.length)
+    cards.sample(cards.length)
   end
 
   def populate(cards)

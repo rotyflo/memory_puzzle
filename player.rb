@@ -1,5 +1,5 @@
 class Player
-  def get_card(board)
+  def get_card_and_pos(board)
     card = nil
 
     while !card
@@ -12,11 +12,13 @@ class Player
       end
     end
 
-    card
+    @last_card
+
+    [card, pos]
   end
 
   def get_pos
-    puts "Enter coordinates with no spaces"
+    puts "Enter coordinates"
     gets.chomp.split("").map { |char| char.to_i if "0123456789".include?(char) }
   end
 end
